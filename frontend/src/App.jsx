@@ -10,7 +10,7 @@ import PrivateRoute from './components/PrivateRoute'
 
 export default function App(){
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-sand-50 to-sand-100">
       <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />

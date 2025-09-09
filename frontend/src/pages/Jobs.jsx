@@ -18,25 +18,25 @@ export default function Jobs() {
   useEffect(() => { load() }, [])
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Job Listings</h1>
+    <div className="container mx-auto p-6 fade-in">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Job Listings</h1>
 
       <div className="flex flex-col md:flex-row gap-2 mb-6">
         <input 
           placeholder="Search jobs..." 
           value={q} 
           onChange={e => setQ(e.target.value)} 
-          className="p-2 border rounded flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+          className="p-3 border rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-amber-450" 
         />
         <button 
           onClick={load} 
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-4 py-2 bg-clay-600 text-white rounded-lg hover:bg-clay-700 transition"
         >
           Search
         </button>
         <a 
           href="http://localhost:5000/api/jobs/export/csv" 
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition" 
+          className="px-4 py-2 bg-sand-600 text-white rounded-lg hover:bg-sand-700 transition" 
           target="_blank"
         >
           Export CSV
@@ -48,7 +48,7 @@ export default function Jobs() {
       ) : (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {jobs.map(j => (
-            <JobCard key={j._id} job={j} className="hover:shadow-xl transition-shadow duration-300" />
+            <JobCard key={j._id} job={j} />
           ))}
         </div>
       )}

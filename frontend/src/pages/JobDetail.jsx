@@ -39,11 +39,11 @@ export default function JobDetail() {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 fade-in">
       {!job ? (
         <p className="text-gray-500">Loading job details...</p>
       ) : (
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
+        <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-lift transition-shadow">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -114,7 +114,7 @@ export default function JobDetail() {
           <div className="flex justify-between">
             <button
               onClick={() => nav('/jobs')}
-              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition"
+              className="px-4 py-2 bg-sand-200 hover:bg-sand-300 text-gray-800 rounded-lg transition"
             >
               ← Back to Jobs
             </button>

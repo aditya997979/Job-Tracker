@@ -1,21 +1,35 @@
 import { Link } from 'react-router-dom'
 
 export default function JobCard({ job }){
+  const thumb = job.company?.toLowerCase().includes('google')
+    ? 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop'
+    : job.company?.toLowerCase().includes('microsoft')
+    ? 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop'
+    : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop'
+
   return (
-    <div className="bg-white p-4 rounded shadow">
-      <div className="flex justify-between">
-        <div>
-          <h3 className="font-semibold">{job.title}</h3>
-          <p className="text-sm text-gray-600">{job.company}</p>
+    <div className="group bg-white rounded-2xl shadow-soft hover:shadow-lift transition-shadow duration-300 overflow-hidden">
+      <div className="relative h-28 bg-sand-100">
+        <img src={thumb} alt="thumbnail" className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent" />
+      </div>
+      <div className="p-5">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="font-semibold text-gray-900">{job.title}</h3>
+            <p className="text-sm text-gray-600">{job.company}</p>
+          </div>
+          <div className="text-xs px-2 py-1 rounded-full bg-sand-100 text-clay-700 border border-sand-200">{job.status}</div>
         </div>
-        <div className="text-sm text-indigo-600">{job.status}</div>
-      </div>
-      <p className="text-sm mt-2">{job.notes}</p>
-      <div className="mt-3 flex gap-2">
-        {job.tags?.map(t=> <span key={t} className="text-xs px-2 py-1 bg-gray-100 rounded">{t}</span>)}
-      </div>
-      <div className="mt-3">
-        <Link to={`/jobs/${job._id}`} className="text-sm text-blue-600 underline">View</Link>
+        <p className="text-sm mt-3 text-gray-700 line-clamp-2">{job.notes}</p>
+        <div className="mt-3 flex gap-2 flex-wrap">
+          {job.tags?.map(t=> (
+            <span key={t} className="text-xs px-2 py-1 rounded-full bg-sand-50 text-gray-700 border border-sand-200">{t}</span>
+          ))}
+        </div>
+        <div className="mt-4">
+          <Link to={`/jobs/${job._id}`} className="inline-flex items-center text-sm text-clay-700 hover:text-clay-800 font-medium transition-colors link-underline">View →</Link>
+        </div>
       </div>
     </div>
   )

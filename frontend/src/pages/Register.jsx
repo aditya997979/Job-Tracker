@@ -10,18 +10,20 @@ export default function Register() {
   const submit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:5000/api/auth/register', form)
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      await axios.post(`${baseUrl}/api/auth/register`, form)
       nav('/login')
     } catch (err) {
-      alert(err?.response?.data?.message || 'Error')
+      const message = err?.response?.data?.message || err?.message || 'Network error'
+      alert(message)
     }
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-sand-50 fade-in">
       <form
         onSubmit={submit}
-        className="bg-white p-8 rounded-xl shadow-lg w-80 space-y-4 hover:shadow-2xl transition-shadow duration-300"
+        className="bg-white p-8 rounded-2xl shadow-soft w-80 space-y-4 hover:shadow-lift transition-shadow duration-300"
       >
         <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
 
@@ -30,7 +32,7 @@ export default function Register() {
           required
           placeholder="Name"
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-450 transition"
         />
 
         {/* Email */}
@@ -39,7 +41,7 @@ export default function Register() {
           placeholder="Email"
           type="email"
           onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-450 transition"
         />
 
         {/* Password with toggle */}
@@ -49,7 +51,7 @@ export default function Register() {
             placeholder="Password"
             type={showPassword ? 'text' : 'password'}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full p-3 border rounded pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full p-3 border rounded-lg pr-12 focus:outline-none focus:ring-2 focus:ring-amber-450 transition"
           />
           <button
             type="button"
@@ -62,14 +64,14 @@ export default function Register() {
 
         {/* Submit */}
         <button
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          className="w-full bg-clay-600 text-white py-3 rounded-lg font-semibold hover:bg-clay-700 transition"
         >
           Register
         </button>
 
         {/* Optional: Login link */}
         <p className="text-center text-sm text-gray-500">
-          Already have an account? <a href="/login" className="text-blue-600 hover:underline">Login</a>
+          Already have an account? <a href="/login" className="text-clay-700 hover:underline">Login</a>
         </p>
       </form>
     </div>
