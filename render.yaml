@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: job-tracker-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: /healthz
+
+    # Optional: attach a persistent disk for uploads to survive restarts
+    # disk:
+    #   name: uploads
+    #   mountPath: /opt/render/project/src/uploads
+    #   sizeGB: 1
+
+    # Optional: pin Node version
+    # envVars:
+    #   - key: NODE_VERSION
+    #     value: 22.16.0
