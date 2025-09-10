@@ -11,8 +11,9 @@ export default function JobDetail() {
   useEffect(() => {
     const load = async () => {
       const token = localStorage.getItem('token')
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/jobs/${id}`, {
+        const { data } = await axios.get(`${baseUrl}/api/jobs/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setJob(data)
@@ -26,7 +27,8 @@ export default function JobDetail() {
   const del = async () => {
     if (!confirm('Are you sure you want to delete this job?')) return
     const token = localStorage.getItem('token')
-    await axios.delete(`http://localhost:5000/api/jobs/${id}`, {
+    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+    await axios.delete(`${baseUrl}/api/jobs/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     nav('/jobs')
@@ -55,7 +57,8 @@ export default function JobDetail() {
     setUpdating(true)
     try {
       const token = localStorage.getItem('token')
-      const { data } = await axios.patch(`http://localhost:5000/api/jobs/${id}/status`, { status: value }, {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      const { data } = await axios.patch(`${baseUrl}/api/jobs/${id}/status`, { status: value }, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setJob(data)
@@ -68,27 +71,29 @@ export default function JobDetail() {
   }
 
   return (
-    <div className="container mx-auto p-6 fade-in">
+    <div className="container mx-auto p-4 sm:p-6 fade-in">
       {!job ? (
-        <p className="text-gray-500">Loading job details...</p>
+        <div className="glass p-6 sm:p-8 rounded-2xl text-center">
+          <p className="text-sm sm:text-base text-gray-500">Loading job details...</p>
+        </div>
       ) : (
-        <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-lift transition-shadow">
+        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-soft hover:shadow-lift transition-shadow">
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800">{job.title}</h1>
-              <p className="text-gray-500 text-sm">{job.company}</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{job.title}</h1>
+              <p className="text-gray-500 text-sm sm:text-base">{job.company}</p>
               {job.appliedDate && (
                 <p className="text-xs text-gray-400 mt-1">
                   Applied on {new Date(job.appliedDate).toLocaleDateString()}
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[job.status] || 'bg-gray-200 text-gray-700'}`}>
                 {job.status}
               </span>
-              <select disabled={updating} onChange={updateStatus} value={job.status} className="p-2 border rounded-lg">
+              <select disabled={updating} onChange={updateStatus} value={job.status} className="p-2 border rounded-lg w-full sm:w-auto">
                 {statuses.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
@@ -130,7 +135,7 @@ export default function JobDetail() {
                 Resume
               </h2>
               <a
-                href={`http://localhost:5000${job.resumeUrl}`}
+                href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${job.resumeUrl}`}
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-600 hover:underline"
@@ -141,16 +146,16 @@ export default function JobDetail() {
           )}
 
           {/* Actions */}
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
             <button
               onClick={() => nav('/jobs')}
-              className="px-4 py-2 bg-sand-200 hover:bg-sand-300 text-gray-800 rounded-lg transition"
+              className="px-4 py-3 sm:py-2 bg-sand-200 hover:bg-sand-300 text-gray-800 rounded-lg transition font-medium"
             >
               ← Back to Jobs
             </button>
             <button
               onClick={del}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md transition"
+              className="px-4 py-3 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md transition font-medium"
             >
               Delete Job
             </button>

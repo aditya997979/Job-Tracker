@@ -13,16 +13,18 @@ export default function App(){
   return (
     <div className="min-h-screen bg-gradient-to-b from-sand-50 to-sand-100">
       <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
-        <Route path="/jobs/:id" element={<PrivateRoute><JobDetail /></PrivateRoute>} />
-        <Route path="/add-job" element={<PrivateRoute><AddJob /></PrivateRoute>} />
-        <Route path="/events" element={<PrivateRoute><Events /></PrivateRoute>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <main className="pb-4 sm:pb-6">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
+          <Route path="/jobs/:id" element={<PrivateRoute><JobDetail /></PrivateRoute>} />
+          <Route path="/add-job" element={<PrivateRoute><AddJob /></PrivateRoute>} />
+          <Route path="/events" element={<PrivateRoute><Events /></PrivateRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
     </div>
   )
 }

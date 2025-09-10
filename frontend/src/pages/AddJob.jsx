@@ -21,7 +21,8 @@ export default function AddJob() {
       Object.keys(form).forEach((k) => fd.append(k, form[k]))
       if (file) fd.append('resume', file)
       const token = localStorage.getItem('token')
-      await axios.post('http://localhost:5000/api/jobs', fd, {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      await axios.post(`${baseUrl}/api/jobs`, fd, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -34,12 +35,12 @@ export default function AddJob() {
   }
 
   return (
-    <div className="flex items-center justify-center p-6 fade-in">
+    <div className="flex items-center justify-center p-4 sm:p-6 fade-in min-h-screen">
       <form
         onSubmit={submit}
-        className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-lift transition-shadow w-full max-w-lg space-y-5"
+        className="bg-white p-6 sm:p-8 rounded-2xl shadow-soft hover:shadow-lift transition-shadow w-full max-w-lg space-y-4 sm:space-y-5"
       >
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">➕ Add Job</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">➕ Add Job</h2>
 
         {/* Job Title */}
         <div>
@@ -137,8 +138,8 @@ export default function AddJob() {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-end">
-          <button className="bg-clay-600 hover:bg-clay-700 text-white px-6 py-2 rounded-lg shadow-md transition">
+        <div className="flex justify-end pt-2">
+          <button className="bg-clay-600 hover:bg-clay-700 text-white px-6 py-3 rounded-lg shadow-md transition font-medium w-full sm:w-auto">
             Save Job
           </button>
         </div>

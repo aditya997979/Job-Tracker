@@ -20,12 +20,12 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-sand-50 fade-in">
+    <div className="flex items-center justify-center min-h-screen bg-sand-50 fade-in p-4">
       <form
         onSubmit={submit}
-        className="bg-white p-8 rounded-2xl shadow-soft w-80 space-y-4 hover:shadow-lift transition-shadow duration-300"
+        className="bg-white p-6 sm:p-8 rounded-2xl shadow-soft w-full max-w-sm space-y-4 hover:shadow-lift transition-shadow duration-300"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">Register</h2>
 
         {/* Name */}
         <input
@@ -64,7 +64,7 @@ export default function Register() {
 
         {/* Submit */}
         <button
-          className="w-full bg-clay-600 text-white py-3 rounded-lg font-semibold hover:bg-clay-700 transition"
+          className="w-full bg-clay-600 text-white py-3 rounded-lg font-semibold hover:bg-clay-700 transition text-base"
         >
           Register
         </button>
