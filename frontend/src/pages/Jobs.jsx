@@ -16,7 +16,7 @@ export default function Jobs() {
     setJobs(data.jobs || [])
   }
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { load() }, [q])
 
   return (
     <div className="container mx-auto p-4 sm:p-6 fade-in">
