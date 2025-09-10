@@ -20,6 +20,7 @@ export default function Navbar(){
           {token ? (
             <>
               <Link to="/jobs" className="px-3 py-2 rounded-lg text-clay-800 hover:bg-white/40 transition link-underline">Jobs</Link>
+              <Link to="/events" className="px-3 py-2 rounded-lg text-clay-800 hover:bg-white/40 transition link-underline">Events</Link>
               <Link to="/add-job" className="px-3 py-2 rounded-lg text-clay-800 hover:bg-white/40 transition link-underline">Add Job</Link>
               <button onClick={logout} className="ml-2 bg-clay-600 hover:bg-clay-700 text-white px-4 py-2 rounded-lg transition">Logout</button>
             </>

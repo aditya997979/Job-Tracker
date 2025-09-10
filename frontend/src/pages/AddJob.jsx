@@ -78,9 +78,11 @@ export default function AddJob() {
             className="w-full p-3 border rounded-lg focus:ring focus:ring-amber-450 outline-none"
           >
             <option>Applied</option>
-            <option>Interview</option>
+            <option>Interview Scheduled</option>
+            <option>Interview Completed</option>
+            <option>Offer Received</option>
             <option>Rejected</option>
-            <option>Offer</option>
+            <option>On Hold</option>
           </select>
         </div>
 

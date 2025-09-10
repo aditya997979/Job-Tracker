@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true },
   company: { type: String, required: true },
-  status: { type: String, enum: ['Applied','Interview','Rejected','Offer'], default: 'Applied' },
+  status: { type: String, enum: ['Applied', 'Interview Scheduled', 'Interview Completed', 'Offer Received', 'Rejected', 'On Hold'], default: 'Applied' },
   appliedDate: { type: Date, default: Date.now },
   notes: { type: String },
   tags: [{ type: String }],

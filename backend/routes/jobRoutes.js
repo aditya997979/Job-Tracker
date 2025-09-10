@@ -3,7 +3,6 @@ import multer from 'multer';
 import path from 'path';
 import Job from '../models/Job.js';
 import protect from '../middleware/authMiddleware.js';
-import { Parser } from 'json2csv';
 
 const router = express.Router();
 
@@ -84,6 +83,23 @@ router.put('/:id', protect, upload.single('resume'), async (req, res) => {
   }
 });
 
+// update status only
+router.patch('/:id/status', protect, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const job = await Job.findOneAndUpdate(
+      { _id: req.params.id, user: req.user._id },
+      { status },
+      { new: true }
+    );
+    if (!job) return res.status(404).json({ message: 'Not found' });
+    res.json(job);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // delete
 router.delete('/:id', protect, async (req, res) => {
   try {
@@ -96,20 +112,5 @@ router.delete('/:id', protect, async (req, res) => {
   }
 });
 
-// export CSV
-router.get('/export/csv', protect, async (req, res) => {
-  try {
-    const jobs = await Job.find({ user: req.user._id }).lean();
-    const fields = ['title','company','status','appliedDate','tags','notes','resumeUrl','createdAt'];
-    const parser = new Parser({ fields });
-    const csv = parser.parse(jobs);
-    res.header('Content-Type', 'text/csv');
-    res.attachment('jobs.csv');
-    return res.send(csv);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
 
 export default router;

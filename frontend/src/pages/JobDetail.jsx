@@ -5,6 +5,7 @@ import axios from 'axios'
 export default function JobDetail() {
   const { id } = useParams()
   const [job, setJob] = useState(null)
+  const [updating, setUpdating] = useState(false)
   const nav = useNavigate()
 
   useEffect(() => {
@@ -32,10 +33,38 @@ export default function JobDetail() {
   }
 
   const statusColors = {
-    Applied: 'bg-blue-100 text-blue-700',
-    Interview: 'bg-yellow-100 text-yellow-700',
-    Rejected: 'bg-red-100 text-red-700',
-    Offer: 'bg-green-100 text-green-700'
+    'Applied': 'bg-blue-100 text-blue-700',
+    'Interview Scheduled': 'bg-yellow-100 text-yellow-700',
+    'Interview Completed': 'bg-emerald-100 text-emerald-700',
+    'Offer Received': 'bg-green-100 text-green-700',
+    'Rejected': 'bg-red-100 text-red-700',
+    'On Hold': 'bg-gray-100 text-gray-700'
+  }
+
+  const statuses = [
+    'Applied',
+    'Interview Scheduled',
+    'Interview Completed',
+    'Offer Received',
+    'Rejected',
+    'On Hold'
+  ]
+
+  const updateStatus = async (e) => {
+    const value = e.target.value
+    setUpdating(true)
+    try {
+      const token = localStorage.getItem('token')
+      const { data } = await axios.patch(`http://localhost:5000/api/jobs/${id}/status`, { status: value }, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      setJob(data)
+    } catch (err) {
+      console.error(err)
+      alert('Failed to update status')
+    } finally {
+      setUpdating(false)
+    }
   }
 
   return (
@@ -55,13 +84,14 @@ export default function JobDetail() {
                 </p>
               )}
             </div>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                statusColors[job.status] || 'bg-gray-200 text-gray-700'
-              }`}
-            >
-              {job.status}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[job.status] || 'bg-gray-200 text-gray-700'}`}>
+                {job.status}
+              </span>
+              <select disabled={updating} onChange={updateStatus} value={job.status} className="p-2 border rounded-lg">
+                {statuses.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
           </div>
 
           {/* Notes */}

@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Jobs from './pages/Jobs'
 import AddJob from './pages/AddJob'
 import JobDetail from './pages/JobDetail'
+import Events from './pages/Events'
 import PrivateRoute from './components/PrivateRoute'
 
 export default function App(){
@@ -19,6 +20,7 @@ export default function App(){
         <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
         <Route path="/jobs/:id" element={<PrivateRoute><JobDetail /></PrivateRoute>} />
         <Route path="/add-job" element={<PrivateRoute><AddJob /></PrivateRoute>} />
+        <Route path="/events" element={<PrivateRoute><Events /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

@@ -34,13 +34,6 @@ export default function Jobs() {
         >
           Search
         </button>
-        <a 
-          href="http://localhost:5000/api/jobs/export/csv" 
-          className="px-4 py-2 bg-sand-600 text-white rounded-lg hover:bg-sand-700 transition" 
-          target="_blank"
-        >
-          Export CSV
-        </a>
       </div>
 
       {jobs.length === 0 ? (
